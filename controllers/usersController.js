@@ -1,9 +1,8 @@
 const UserModel = require("../models/User")
 exports.get_users = async (req, res, next) => {
+  //get users from db
   try {
-    //get users from db
-    const userList = await UserModel.findAll();
-    console.log("user list", userList)
+    const userList = await UserModel.findAll({});
     res.render("users", {userList});
     
   } catch (error) {
@@ -22,11 +21,27 @@ exports.add_user = async (req, res) => {
   try {
     const newUser = await UserModel.create({
       firstName: req.body.firstName,
-      lastName: req.body.lastName
+      lastName: req.body.lastName,
     })
     res.redirect("/users")
     
   } catch (error) {
-    
+    res.send("An error occured")
   }
+}
+
+
+// on delete request
+exports.delete_user = async (req, res) => {
+  
+try {
+  await UserModel.destroy({
+    where: {
+      id : req.params.id,
+    }
+  })
+  res.redirect("/users");
+} catch (error) {
+  console.log(error)
+}
 }

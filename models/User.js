@@ -16,18 +16,20 @@ sequelize
 
 // modelname, attribute, options
 const UserModel = sequelize.define(
-  "recruiter",
+  "recruiters",
   {
     firstName: {
-        type: DataTypes.STRING
+      type: DataTypes.STRING,
+      allowNull: false,
     },
     lastName: {
-        type: DataTypes.STRING
-    }
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   },
   {
-    //options
-  }
+    freezeTableName: true,
+  },
 );
 
 module.exports = UserModel;
